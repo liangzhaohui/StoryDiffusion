@@ -34,7 +34,7 @@ npm run serve
 
 (Running on http://localhost:8080)
 
-## ngrok
+## Frp
 ```
 cd frp
 ```
