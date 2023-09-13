@@ -7,9 +7,8 @@ The project requires more than 12g of RAM and more than 8g of video memory as we
 ## Stable Diffusion
 Develop based on https://github.com/AUTOMATIC1111/stable-diffusion-webui, thanks for their amazing work.
 
-Install
-for Windows users
-run webui-user.bat (python installation needed)
+For Windows users
+run webui-user.bat to install venv (python installation needed)
 
 
 Download the model from https://civitai.com/models/4823/deliberate, and put it into 'stable-diffusion-webui/models/Stable-diffusion'
