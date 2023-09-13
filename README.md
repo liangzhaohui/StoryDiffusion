@@ -50,6 +50,7 @@ venv/Scripts/python.exe launch.py --nowebui --xformers --no-half
 ```angular2html
 pip install flask openai requests flask_cors
 ```
+Write your OpenAI key in config.py
 
 in flask_gpt4/style (Running on http://127.0.0.1:5000)
 ```
