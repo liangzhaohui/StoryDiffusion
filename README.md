@@ -1,7 +1,7 @@
 # Storyboard_Diffusion
 
 A web tool called StoryDiffusion, which enables collaborative storyboard creation between human and computer, through natural language input and automatic storyboard generation.
-![Alt text](image.png)
+![Alt text](UI.png)
 The project requires more than 12g of RAM and more than 8g of video memory as well as better hardware performance for a full run, so it is not recommended to run it on low-computing-power devices such as personal laptops.
 
 ## Stable Diffusion
