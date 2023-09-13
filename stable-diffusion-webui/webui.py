@@ -342,7 +342,7 @@ def setup_middleware(app):
         "allow_methods": ["*"],
         "allow_headers": ["*"],
         "allow_credentials": True,
-        "allow_origins": ["http://localhost:8080", "http://144.202.103.70:8080"],
+        "allow_origins": ["http://localhost:8080"],#"allow_origins": ["http://localhost:8080", "http://YOUR_IP:8080"],
     }
     if cmd_opts.cors_allow_origins:
         cors_options["allow_origins"] = cmd_opts.cors_allow_origins.split(',')
