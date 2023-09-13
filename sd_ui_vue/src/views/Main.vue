@@ -122,13 +122,13 @@ export default {
       this.progress[taskName] = 0;
       switch (taskName) {
         case 'style':
-          duration = 25000; // 15s
+          duration = 25000; // 25s
           break;
         case 'submit':
-          duration = 60000; // 50s
+          duration = 120000; // 120s
           break;
         case 'image':
-          duration = 10000; // 6s
+          duration = 10000; // 10s
           break;
 
       }

@@ -11,8 +11,11 @@ Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 
+// 定义全局的HTTP链接
+const apiUrl = 'http://144.202.103.70';
+
 Vue.prototype.$saveLogToServer = function(logMessage) {
-  axios.post('http://144.202.103.70:5010/api/save-log', {
+  axios.post(`${apiUrl}:5010/api/save-log`, {
     log: logMessage
   }).then(response => {
     // Log saved in server
@@ -27,3 +30,4 @@ new Vue({
   i18n,
   render: h => h(App)
 }).$mount('#app')
+

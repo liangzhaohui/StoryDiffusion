@@ -57,7 +57,7 @@ export default {
         };
 
         // 发送请求
-        axios.post('http://144.202.103.70:7861/sdapi/v1/options', option_payload)
+        axios.post('${this.$apiUrl}:7861/sdapi/v1/options', option_payload)
             .then(response => {
               console.log('Model updated successfully');
             })
@@ -80,14 +80,14 @@ export default {
       //console.log(this.textarea); // 打印输入的内容
       //console.log(this.selectedOption); // 打印选中的选项
 
-      console.log(this.localStory); // 打印 value
+      //console.log(this.localStory); // 打印 value
 
       try {
-        const combinedContent = this.localStory +" // " + this.style;//this.style + "//" + this.textarea //
-        this.$saveLogToServer('story part + style');
+        const combinedContent = this.localStory +" // " + this.style;//this.style + "//" + this.textarea //?????style undefined
+        this.$saveLogToServer('story part');
         this.$saveLogToServer(combinedContent);
         console.log(combinedContent)
-        const response = await axios.post('http://144.202.103.70:5001/api/generate_one_prompt', {
+        const response = await axios.post('${this.$apiUrl}:5001/api/generate_one_prompt', {
           content: combinedContent,
           model: 'gpt-4',
           temperature: 1,
@@ -101,23 +101,25 @@ export default {
         // const prompts = content.trim().split(/\n{2,}/)  // 使用两个或更多的换行符来分割提示
         //     .map(prompt => prompt.replace(/'Prompt \d+'\n/, ''));  // 使用正则表达式去除 'Prompt X' 这样的编号
         // console.log(prompts);
-        const prompts = content.trim().split(/\n{2,}/)  // 使用两个或更多的换行符来分割提示
-            .map(prompt => {
-              // 使用正则表达式去除 'Prompt X' 或 'Prompt X : Some description' 这样的模式
-              prompt = prompt.replace(/'Prompt \d+( : .+)?'\n/, '');
-              // 使用正则表达式去除 ```vbnet
-              prompt = prompt.replace(/^```vbnet\n/, '')
-              const lines = prompt.split('\n');
-              // 如果有回车，则仅保留回车之后的内容
-              if (lines.length > 1) {
-                return lines.slice(1).join('\n');
-              }
-              return prompt;
-            });
+        // const prompts = content.trim().split(/\n{2,}/)  // 使用两个或更多的换行符来分割提示
+        //     .map(prompt => {
+        //       // 使用正则表达式去除 'Prompt X' 或 'Prompt X : Some description' 这样的模式
+        //       prompt = prompt.replace(/'Prompt \d+( : .+)?'\n/, '');
+        //       // 使用正则表达式去除 ```vbnet
+        //       prompt = prompt.replace(/^```vbnet\n/, '')
+        //       const lines = prompt.split('\n');
+        //       // 如果有回车，则仅保留回车之后的内容
+        //       if (lines.length > 1) {
+        //         return lines.slice(1).join('\n');
+        //       }
+        //       return prompt;
+        //     });
+        const prompts = content
         this.$saveLogToServer('Prompt');
         this.$saveLogToServer(prompts);
         console.log(prompts);
-        this.localprompt = prompts;
+        this.localPrompt = prompts;
+        this.showPrompt = !this.showPrompt;
         // 触发 submit 事件并传递 prompts
         //this.$emit('submit', prompts);
         //this.$emit('taskComplete', 'submit');
@@ -138,7 +140,7 @@ export default {
       };
       console.log(payload)
       try {
-        const response = await axios.post('http://144.202.103.70:7861/sdapi/v1/txt2img', payload);
+        const response = await axios.post('${this.$apiUrl}:7861/sdapi/v1/txt2img', payload);
         const images = response.data.images;
         if (images.length > 0) {
           const imageUrl = 'data:image/png;base64,' + images[0];

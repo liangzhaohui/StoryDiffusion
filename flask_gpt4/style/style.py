@@ -1,14 +1,16 @@
+# app.py
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import openai
 import requests
 import json
 
-app = Flask(__name__)
-CORS(app)  # 添加这一行
+# 导入配置文件
+from config import API_KEY, API_ENDPOINT
 
-API_KEY = "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"
-API_ENDPOINT = "https://api.openai.com/v1/chat/completions"
+app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/api/style', methods=['POST'])

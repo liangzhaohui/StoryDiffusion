@@ -2,13 +2,13 @@
   <el-row>
 
     <el-card :body-style="{ padding: '10px' }"  style="height: 80%;width:100%;display:inline-block;gutter:0;">
-      <h3 style="background-color: #f5f5f5; padding: 5px 10px; border-radius: 4px;margin-top: 0; margin-bottom: 0;">Story</h3>
+      <h3 style="background-color: #f5f5f5; padding: 5px 10px; border-radius: 4px;margin-top: 0; margin-bottom: 0; ">Story</h3>
       <el-progress
           :percentage="progress.style"
           stroke-linecap="butt"
           type="line"
-          :stroke-width="10"
-          color="#f5f5f5"
+          :stroke-width="2"
+          color="#bdbdbd"
           :show-text="false"
           style="margin-top: 0; margin-bottom: 10px;"
       ></el-progress>
@@ -51,7 +51,7 @@
           :percentage="progress.submit"
           stroke-linecap="butt"
           type="line"
-          :stroke-width="10" color="#f5f5f5"
+          :stroke-width="2" color="#bdbdbd"
           :show-text="false"
           style="margin-top: 0; margin-bottom: 10px;"
       ></el-progress>
@@ -256,7 +256,7 @@ export default {
   },
   async mounted() {
     try {
-      await axios.get('http://144.202.103.70:5010/api/resetTempFiles');
+      await axios.get('${this.$apiUrl}:5010/api/resetTempFiles');
       await this.fetchStyle();
       await this.fetchTransfer();
     } catch (error) {
@@ -277,7 +277,7 @@ export default {
     },
     async fetchStyle() {
       try {
-        const response = await axios.get('http://144.202.103.70:5010/api/fetchStyle');
+        const response = await axios.get('${this.$apiUrl}:5010/api/fetchStyle');
         this.stylePrompt = response.data.content;
       } catch (error) {
         console.error("Error fetching style:", error);
@@ -285,7 +285,7 @@ export default {
     },
     async fetchTransfer() {
       try {
-        const response = await axios.get('http://144.202.103.70:5010/api/fetchTransfer');
+        const response = await axios.get('${this.$apiUrl}:5010/api/fetchTransfer');
         this.transferPrompt = response.data.content;
       } catch (error) {
         console.error("Error fetching transfer:", error);
@@ -293,14 +293,14 @@ export default {
     },
     async saveStyle() {
       try {
-        await axios.post('http://144.202.103.70:5010/api/saveStyle', { content: this.stylePrompt });
+        await axios.post('${this.$apiUrl}:5010/api/saveStyle', { content: this.stylePrompt });
       } catch (error) {
         console.error("Error saving style:", error);
       }
     },
     async saveTransfer() {
       try {
-        await axios.post('http://144.202.103.70:5010/api/saveTransfer', { content: this.transferPrompt });
+        await axios.post('${this.$apiUrl}:5010/api/saveTransfer', { content: this.transferPrompt });
       } catch (error) {
         console.error("Error saving transfer:", error);
       }
@@ -331,7 +331,7 @@ export default {
       console.log(this.textarea); // 打印输入的内容
 
       try {
-        const response = await axios.post('http://144.202.103.70:5000/api/style', {
+        const response = await axios.post('${this.$apiUrl}:5000/api/style', {
           content: this.textarea,
           model: 'gpt-4',
           temperature: 1,
@@ -340,7 +340,8 @@ export default {
         const style = response.data.content;
         this.style = style;// Change variable name here
         console.log(style);
-
+        this.$saveLogToServer('Style:');
+        this.$saveLogToServer(style);
         // Extract the content within the curly braces and assign them to the corresponding properties
         const ageMatch = style.match(/Age:\{(.*?)\}/);
         if (ageMatch) this.promptForm.character.age = ageMatch[1];
@@ -398,7 +399,7 @@ export default {
         this.$saveLogToServer('User input');
         this.$saveLogToServer(combinedContent);
         console.log(combinedContent)
-        const response = await axios.post('http://144.202.103.70:5001/api/generate_story', {
+        const response = await axios.post('${this.$apiUrl}:5001/api/generate_story', {
           content: combinedContent,
           model: 'gpt-4',
           temperature: 1,
@@ -448,7 +449,7 @@ export default {
         this.$saveLogToServer('story + style');
         this.$saveLogToServer(combinedContent);
         console.log(combinedContent)
-        const response = await axios.post('http://144.202.103.70:5001/api/generate_prompt', {
+        const response = await axios.post('${this.$apiUrl}:5001/api/generate_prompt', {
           content: combinedContent,
           model: 'gpt-4',
           temperature: 1,
