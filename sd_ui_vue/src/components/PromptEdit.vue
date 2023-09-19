@@ -57,7 +57,7 @@ export default {
         };
 
         // 发送请求
-        axios.post('${this.$apiUrl}:7861/sdapi/v1/options', option_payload)
+        axios.post(`${this.$apiUrl}:7861/sdapi/v1/options`, option_payload)
             .then(response => {
               console.log('Model updated successfully');
             })
@@ -87,7 +87,7 @@ export default {
         this.$saveLogToServer('story part');
         this.$saveLogToServer(combinedContent);
         console.log(combinedContent)
-        const response = await axios.post('${this.$apiUrl}:5001/api/generate_one_prompt', {
+        const response = await axios.post(`${this.$apiUrl}:5001/api/generate_one_prompt`, {
           content: combinedContent,
           model: 'gpt-4',
           temperature: 1,
@@ -140,7 +140,7 @@ export default {
       };
       console.log(payload)
       try {
-        const response = await axios.post('${this.$apiUrl}:7861/sdapi/v1/txt2img', payload);
+        const response = await axios.post(`${this.$apiUrl}:7861/sdapi/v1/txt2img`, payload);
         const images = response.data.images;
         if (images.length > 0) {
           const imageUrl = 'data:image/png;base64,' + images[0];

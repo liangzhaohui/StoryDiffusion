@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 
 // 定义全局的HTTP链接
 const apiUrl = 'http://127.0.0.1';
-
+Vue.prototype.$apiUrl = 'http://127.0.0.1';
 Vue.prototype.$saveLogToServer = function(logMessage) {
   axios.post(`${apiUrl}:5010/api/save-log`, {
     log: logMessage

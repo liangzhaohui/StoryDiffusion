@@ -256,7 +256,7 @@ export default {
   },
   async mounted() {
     try {
-      await axios.get('${this.$apiUrl}:5010/api/resetTempFiles');
+      await axios.get(`${this.$apiUrl}:5010/api/resetTempFiles`);
       await this.fetchStyle();
       await this.fetchTransfer();
     } catch (error) {
@@ -277,7 +277,7 @@ export default {
     },
     async fetchStyle() {
       try {
-        const response = await axios.get('${this.$apiUrl}:5010/api/fetchStyle');
+        const response = await axios.get(`${this.$apiUrl}:5010/api/fetchStyle`);
         this.stylePrompt = response.data.content;
       } catch (error) {
         console.error("Error fetching style:", error);
@@ -285,7 +285,7 @@ export default {
     },
     async fetchTransfer() {
       try {
-        const response = await axios.get('${this.$apiUrl}:5010/api/fetchTransfer');
+        const response = await axios.get(`${this.$apiUrl}:5010/api/fetchTransfer`);
         this.transferPrompt = response.data.content;
       } catch (error) {
         console.error("Error fetching transfer:", error);
@@ -293,14 +293,14 @@ export default {
     },
     async saveStyle() {
       try {
-        await axios.post('${this.$apiUrl}:5010/api/saveStyle', { content: this.stylePrompt });
+        await axios.post(`${this.$apiUrl}:5010/api/saveStyle`, { content: this.stylePrompt });
       } catch (error) {
         console.error("Error saving style:", error);
       }
     },
     async saveTransfer() {
       try {
-        await axios.post('${this.$apiUrl}:5010/api/saveTransfer', { content: this.transferPrompt });
+        await axios.post(`${this.$apiUrl}:5010/api/saveTransfer`, { content: this.transferPrompt });
       } catch (error) {
         console.error("Error saving transfer:", error);
       }
@@ -331,7 +331,7 @@ export default {
       console.log(this.textarea); // 打印输入的内容
 
       try {
-        const response = await axios.post('${this.$apiUrl}:5000/api/style', {
+        const response = await axios.post(`${this.$apiUrl}:5000/api/style`, {
           content: this.textarea,
           model: 'gpt-4',
           temperature: 1,
@@ -399,7 +399,7 @@ export default {
         this.$saveLogToServer('User input');
         this.$saveLogToServer(combinedContent);
         console.log(combinedContent)
-        const response = await axios.post('${this.$apiUrl}:5001/api/generate_story', {
+        const response = await axios.post(`${this.$apiUrl}:5001/api/generate_story`, {
           content: combinedContent,
           model: 'gpt-4',
           temperature: 1,
@@ -449,7 +449,7 @@ export default {
         this.$saveLogToServer('story + style');
         this.$saveLogToServer(combinedContent);
         console.log(combinedContent)
-        const response = await axios.post('${this.$apiUrl}:5001/api/generate_prompt', {
+        const response = await axios.post(`${this.$apiUrl}:5001/api/generate_prompt`, {
           content: combinedContent,
           model: 'gpt-4',
           temperature: 1,

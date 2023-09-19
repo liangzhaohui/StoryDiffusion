@@ -5,7 +5,8 @@ from flask_cors import CORS
 import openai
 import requests
 import json
-
+import sys
+sys.path.append("..")  # 添加母文件夹到sys.path
 # 导入配置文件
 from config import API_KEY, API_ENDPOINT
 
